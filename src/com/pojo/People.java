@@ -1,15 +1,37 @@
 package com.pojo;
 
 public class People {
+	
 	private int id;
+	
 	private String name;
-	
-	
 	
 	public People() {
 		super();
-		System.out.println("执行构造方法");
+		System.out.println("执行无参构造方法");
 	}
+	
+	public People(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+		System.out.println("执行有参构造方法1");
+	}
+	
+	public People(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+		System.out.println("执行有参构造Integer");
+	}
+
+	public People(String name,int id) {
+		super();
+		this.id = id;
+		this.name = name;
+		System.out.println("执行有参构造方法2");
+	}
+	
 	public int getId() {
 		return id;
 	}
