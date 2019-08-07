@@ -1,9 +1,13 @@
 package com.test;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.pojo.Airport;
 import com.pojo.People;
+import com.service.impl.AirportServiceImpl;
 
 public class Test {
 	public static void main(String[] args) {
@@ -32,5 +36,9 @@ public class Test {
 		 * 静态工厂
 		 */
 //		People peo = PeopleFactory.newInstance();
+		
+		AirportServiceImpl bean = ac.getBean("airportService",AirportServiceImpl.class);
+		List<Airport> list = bean.show();
+		System.out.println(list);
 	}
 }
