@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- id表示获取到对象标识
     	 class 创建哪个类的对象
      -->
     <!-- <bean id="people" class="com.pojo.People"/> -->
-    <bean id="people" class="com.pojo.People">
-    	<!-- ref引用另一个bean   value 基本数据类型或String等 -->
+    <!-- <bean id="people" class="com.pojo.People">
+    	ref引用另一个bean   value 基本数据类型或String等
     	<constructor-arg index="0" name="id" type="int" value="123"></constructor-arg>
     	<constructor-arg index="1" name="name" type="java.lang.String" value="张三"></constructor-arg>
 	    <property name="id">
@@ -43,12 +46,12 @@
 	    		</map>
 	    	</property>
 	    	
-	    	<!-- <property name="demo">
+	    	<property name="demo">
 	    		<props>
 	    			<prop key="key">value</prop>
 	    			<prop key="key1">value1</prop>
 	    		</props>
-	    	</property> -->
+	    	</property>
 	    	
 	    	<property name="desk" ref="desk"></property>
     </bean>
@@ -58,12 +61,12 @@
     	<property name="price" value="12"></property>
     </bean>
     
-   	<!--  实例工厂 -->
+   	 实例工厂
     <bean id="peopleFactory" class="com.pojo.PeopleFactory"></bean>
     <bean id="peo1" factory-bean="peopleFactory" factory-method="newInstance"></bean>
    	
-   	<!-- 静态工厂 --> 
-    <bean id="peo2" class="com.pojo.PeopleFactory" factory-method="newInstanceStatic"></bean>
+   	静态工厂 
+    <bean id="peo2" class="com.pojo.PeopleFactory" factory-method="newInstanceStatic"></bean> -->
     
     <!-- 数据源封装类 .数据源:获取数据库连接,spring-jdbc.jar中-->
     <bean id="dataSouce" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -96,4 +99,33 @@
     <bean id="usersService" class="com.service.impl.UsersServiceImpl">
     	<property name="usersMapper" ref="usersMapper"></property>
     </bean>
+    
+    <!-- 配置Demo 类,测试使用-->
+    <bean id="demo" class="com.test.Demo"></bean>
+    <bean id="demo1" class="com.test.Demo1"></bean>
+    <bean id="myadvice" class="com.advice.MyAdvice"></bean>
+    <bean id="mythrowadvice" class="com.advice.MyThrowAdvice"></bean>
+    <!-- 配置通知类对象,在切面中引入-->
+    <bean id="mybefore" class ="com.advice.MybeforeAdvice"></bean>
+    <bean id="myafter" class ="com.advice.MyAfterAdvice"></bean>
+    
+    <!-- 配置切面-->
+    <aop:config>
+    
+    	<!-- 通知-->
+    	<!-- <aop:pointcut expression="execution(* com.test.*.*(..))" id="mypoint"/>
+    	<aop:advisor advice-ref="mybefore" pointcut-ref="mypoint"/>
+    	<aop:advisor advice-ref="myafter" pointcut-ref="mypoint"/> -->
+    	<aop:aspect ref="mythrowadvice">
+    		<!-- <aop:pointcut expression="execution(* com.test.Demo.demo1(String,int)) and args(name1,age1)" id="mypoint"/>
+    		<aop:pointcut expression="execution(* com.test.Demo.demo1(String)) and args(name1)" id="mypoint1"/>
+    		<aop:before method="mybefore" pointcut-ref="mypoint" arg-names="name1,age1"/>
+    		<aop:before method="mybefore1" pointcut-ref="mypoint1" arg-names="name1"/> -->
+    		<!-- <aop:after method="myafter" pointcut-ref="mypoint"/> -->
+    		<!-- <aop:after-returning method="myaftering" pointcut-ref="mypoint"/>  -->
+    		<aop:pointcut expression="execution(* com.test.Demo.demo1())" id="mypoint"/>
+    		<aop:after-throwing method="myexception" pointcut-ref="mypoint" throwing="e"/>
+    		<!-- <aop:around method="myarround"  pointcut-ref="mypoint"/> -->
+    	</aop:aspect>
+    </aop:config>
 </beans>
