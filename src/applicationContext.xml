@@ -91,4 +91,9 @@
     <bean id="airportService" class="com.service.impl.AirportServiceImpl">
     	<property name="airportMapper" ref="airportMapper"></property>
     </bean>
+    
+    <!-- 创建Service -->
+    <bean id="usersService" class="com.service.impl.UsersServiceImpl">
+    	<property name="usersMapper" ref="usersMapper"></property>
+    </bean>
 </beans>
