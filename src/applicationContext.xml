@@ -144,4 +144,12 @@
 		<aop:advisor advice-ref="mythrow" pointcut-ref="mypoint" />
 	</aop:config> -->
 	
+	<!-- schema-based方式配置环绕通知 -->
+	<!-- 把前置通知和后置通知都写到一个通知中,组成了环绕通知 -->
+	<bean id="myarround" class="com.advice.MyArround"></bean>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.test.Demo.demo1())" id="mypoint"/>
+		<aop:advisor advice-ref="myarround" pointcut-ref="mypoint" />
+	</aop:config>
+	
 </beans>
