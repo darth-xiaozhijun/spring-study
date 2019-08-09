@@ -2,10 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
     <!-- id表示获取到对象标识
     	 class 创建哪个类的对象
      -->
@@ -101,8 +104,8 @@
     </bean>
     
     <!-- 配置Demo 类,测试使用-->
-    <bean id="demo" class="com.test.Demo"></bean>
-    <bean id="demo1" class="com.test.Demo1"></bean>
+    <!-- <bean id="demo" class="com.test.Demo"></bean>
+    <bean id="demo1" class="com.test.Demo1"></bean> -->
     
     <!-- schema-base配置前置、后置通知 -->
     <!-- 配置通知类对象,在切面中引入-->
@@ -158,4 +161,12 @@
 	  		<aop:around method="myarround"  pointcut-ref="mypoint"/>
     	</aop:aspect>
    	</aop:config> -->
+   	
+   	<!-- 注解扫描包 -->
+   	<context:component-scan base-package="com.advice,com.test"></context:component-scan>
+   	<!-- proxy-target-class
+   		true cglib动态代理
+   		false jdk动态代理
+   	 -->
+   	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 </beans>

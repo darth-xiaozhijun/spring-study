@@ -43,8 +43,8 @@ public class Test {
 		
 		Demo demo = ac.getBean("demo",Demo.class);
 		try {
-//			demo.demo1();
-			demo.demo1("张三",12);
+			demo.demo1();
+//			demo.demo1("张三",12);
 //			demo.demo1("李四");
 		} catch (Exception e) {
 //			e.printStackTrace();
