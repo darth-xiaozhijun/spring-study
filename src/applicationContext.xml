@@ -103,11 +103,27 @@
     <!-- 配置Demo 类,测试使用-->
     <bean id="demo" class="com.test.Demo"></bean>
     <bean id="demo1" class="com.test.Demo1"></bean>
-    <bean id="myadvice" class="com.advice.MyAdvice"></bean>
     
+    <!-- schema-base配置前置、后置通知 -->
     <!-- 配置通知类对象,在切面中引入-->
-    <bean id="mybefore" class ="com.advice.MybeforeAdvice"></bean>
+    <!-- <bean id="mybefore" class ="com.advice.MybeforeAdvice"></bean>
     <bean id="myafter" class ="com.advice.MyAfterAdvice"></bean>
+    切面
+    <aop:config>
+    	切点
+	    <aop:pointcut expression="execution(* com.test.*.*(..))" id="mypoint"/>
+	   	前置通知
+	   	<aop:advisor advice-ref="mybefore" pointcut-ref="mypoint"/>
+	   	后置通知
+	   	<aop:advisor advice-ref="myafter" pointcut-ref="mypoint"/>
+    </aop:config> -->
+   	
+   	<!-- schema-base配置异常通知 -->
+    <!-- <bean id="mythrow" class="com.advice.MyThrow"></bean>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.test.Demo.demo1())" id="mypoint"/>
+		<aop:advisor advice-ref="mythrow" pointcut-ref="mypoint" />
+	</aop:config> -->
     
     <!-- AspectJ 配置异常通知 -->
     <!-- <bean id="mythrowadvice" class="com.advice.MyThrowAdvice"></bean>
@@ -117,39 +133,29 @@
 	   		<aop:after-throwing method="myexception" pointcut-ref="mypoint" throwing="e"/>
 	   	</aop:aspect>
     </aop:config> -->	
-   	
     
-    <!-- 配置切面-->
-    <aop:config>
-    
-    	<!-- 通知-->
-    	<!-- <aop:pointcut expression="execution(* com.test.*.*(..))" id="mypoint"/>
-    	<aop:advisor advice-ref="mybefore" pointcut-ref="mypoint"/>
-    	<aop:advisor advice-ref="myafter" pointcut-ref="mypoint"/> -->
-    	
-    	<!-- <aop:pointcut expression="execution(* com.test.Demo.demo1(String,int)) and args(name1,age1)" id="mypoint"/>
-    		<aop:pointcut expression="execution(* com.test.Demo.demo1(String)) and args(name1)" id="mypoint1"/>
-    		<aop:before method="mybefore" pointcut-ref="mypoint" arg-names="name1,age1"/>
-    		<aop:before method="mybefore1" pointcut-ref="mypoint1" arg-names="name1"/> -->
-    		<!-- <aop:after method="myafter" pointcut-ref="mypoint"/> -->
-    		<!-- <aop:after-returning method="myaftering" pointcut-ref="mypoint"/>  -->
-    		<!-- <aop:around method="myarround"  pointcut-ref="mypoint"/> -->
-    	
-    </aop:config>
-    
-    <!-- schema-base配置异常通知 -->
-    <!-- <bean id="mythrow" class="com.advice.MyThrow"></bean>
-	<aop:config>
-		<aop:pointcut expression="execution(* com.test.Demo.demo1())" id="mypoint"/>
-		<aop:advisor advice-ref="mythrow" pointcut-ref="mypoint" />
-	</aop:config> -->
-	
-	<!-- schema-based方式配置环绕通知 -->
+    <!-- schema-based方式配置环绕通知 -->
 	<!-- 把前置通知和后置通知都写到一个通知中,组成了环绕通知 -->
-	<bean id="myarround" class="com.advice.MyArround"></bean>
+	<!-- <bean id="myarround" class="com.advice.MyArround"></bean>
 	<aop:config>
 		<aop:pointcut expression="execution(* com.test.Demo.demo1())" id="mypoint"/>
 		<aop:advisor advice-ref="myarround" pointcut-ref="mypoint" />
-	</aop:config>
-	
+	</aop:config> -->
+   	
+   	<!-- 使用AspectJ方式实现通知 -->
+   	<!-- <bean id="myadvice" class="com.advice.MyAdvice"></bean>
+   	<aop:config>
+   		<aop:aspect ref="myadvice">
+	  		<aop:pointcut expression="execution(* com.test.Demo.demo1(String,int)) and args(name1,age1)" id="mypoint"/>
+	  		<aop:pointcut expression="execution(* com.test.Demo.demo1())" id="mypoint"/>
+	  		<aop:pointcut expression="execution(* com.test.Demo.demo1(String)) and args(name1)" id="mypoint1"/>
+	  		
+	  		<aop:before method="mybefore" pointcut-ref="mypoint" arg-names="name1,age1"/>
+	  		<aop:before method="mybefore1" pointcut-ref="mypoint1" arg-names="name1"/>
+	  		<aop:after method="myafter" pointcut-ref="mypoint"/>
+	  		<aop:after-returning method="myaftering" pointcut-ref="mypoint"/> 
+	  		<aop:after-throwing method="mythrow" pointcut-ref="mypoint"/>
+	  		<aop:around method="myarround"  pointcut-ref="mypoint"/>
+    	</aop:aspect>
+   	</aop:config> -->
 </beans>

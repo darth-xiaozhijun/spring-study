@@ -3,8 +3,13 @@ package com.test;
 public class Demo {
 	
 	public void demo1() throws Exception{
-//		int i = 5/0;
+		int i = 5/0;
 		System.out.println("demo1");
+	}
+	
+	public void demo1(String name,int age) throws Exception{
+//		int i = 5/0;
+		System.out.println("demo1"+name+"  "+age);
 	}
 	
 	public void demo1(String name){
