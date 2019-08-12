@@ -5,6 +5,7 @@ import com.pojo.Users;
 import com.service.UsersService;
 
 public class UsersServiceImpl implements UsersService {
+	
 	private UsersMapper usersMapper;
 	
 	public UsersMapper getUsersMapper() {

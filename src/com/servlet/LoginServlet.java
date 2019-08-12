@@ -26,9 +26,9 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String code = req.getParameter("code");
-		String codeSession = req.getSession().getAttribute("code").toString();
-		if(codeSession.equals(code)){
+//		String code = req.getParameter("code");
+//		String codeSession = req.getSession().getAttribute("code").toString();
+//		if(codeSession.equals(code)){
 			String username = req.getParameter("username");
 			String password = req.getParameter("password");
 			Users users = new Users();
@@ -41,10 +41,10 @@ public class LoginServlet extends HttpServlet {
 				req.setAttribute("error", "用户名密码不正确");
 				req.getRequestDispatcher("valid.jsp").forward(req, resp);
 			}
-		}else{
-			req.setAttribute("error", "验证码不正确");
-			req.getRequestDispatcher("valid.jsp").forward(req, resp);
-		}
+//		}else{
+//			req.setAttribute("error", "验证码不正确");
+//			req.getRequestDispatcher("valid.jsp").forward(req, resp);
+//		}
 		
 	}
 }

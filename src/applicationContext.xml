@@ -83,6 +83,8 @@
     <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
     	<!-- 数据库连接信息来源于dataSource -->
     	<property name="dataSource" ref="dataSouce"></property>
+    	<!-- 别名 -->
+    	<property name="typeAliasesPackage" value="com.pojo"></property>
     </bean>
     
     <!-- 扫描器相当于mybatis.xml中 mappers下package标签,扫描com.bjsxt.mapper包后会给对应接口创建对象-->
@@ -163,10 +165,20 @@
    	</aop:config> -->
    	
    	<!-- 注解扫描包 -->
-   	<context:component-scan base-package="com.advice,com.test"></context:component-scan>
+   	<!-- <context:component-scan base-package="com.advice,com.test"></context:component-scan> -->
+   	
    	<!-- proxy-target-class
    		true cglib动态代理
    		false jdk动态代理
    	 -->
    	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+   	
+    <!-- aop -->
+    <bean id="mybeforelogin" class="com.advice.MyBeforeLogin"></bean>
+    <bean id="myafterlogin" class="com.advice.MyAfterLogin"></bean>
+    <aop:config>
+    	<aop:pointcut expression="execution(* com.service.impl.UsersServiceImpl.login(..))" id="mypoint"/>
+    	<aop:advisor advice-ref="mybeforelogin" pointcut-ref="mypoint"/>
+    	<aop:advisor advice-ref="myafterlogin" pointcut-ref="mypoint"/>
+    </aop:config>
 </beans>
