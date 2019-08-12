@@ -8,7 +8,12 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd"
+        default-autowire="byName">
+    
+    <!-- 加载外部文件properties -->    
+    <context:property-placeholder location="classpath:db.properties,classpath:second.properties"/>
+    
     <!-- id表示获取到对象标识
     	 class 创建哪个类的对象
      -->
@@ -73,10 +78,10 @@
     
     <!-- 数据源封装类 .数据源:获取数据库连接,spring-jdbc.jar中-->
     <bean id="dataSouce" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-    	<property name="url" value="jdbc:mysql://localhost:3306/ssm"></property>
-    	<property name="username" value="root"></property>
-    	<property name="password" value="123456"></property>
+    	<property name="driverClassName" value="${jdbc.driver}"></property>
+    	<property name="url" value="${jdbc.url}"></property>
+    	<property name="username" value="${jdbc.username}"></property>
+    	<property name="password" value="${jdbc.password}"></property>
     </bean>
     
     <!-- 创建SqlSessionFactory对象 -->
@@ -92,7 +97,8 @@
     	<!-- 要扫描哪个包 -->
     	<property name="basePackage" value="com.mapper"></property>
     	<!-- 和factory产生关系 -->
-    	<property name="sqlSessionFactory" ref="factory"></property>
+    	<!-- <property name="sqlSessionFactory" ref="factory"></property> -->
+    	<property name="sqlSessionFactoryBeanName" value="factory"></property>
     </bean>
     
     <!-- 由spring管理service实现类 -->
@@ -102,7 +108,7 @@
     
     <!-- 创建Service -->
     <bean id="usersService" class="com.service.impl.UsersServiceImpl">
-    	<property name="usersMapper" ref="usersMapper"></property>
+    	<!-- <property name="usersMapper" ref="usersMapper"></property> -->
     </bean>
     
     <!-- 配置Demo 类,测试使用-->
@@ -165,7 +171,7 @@
    	</aop:config> -->
    	
    	<!-- 注解扫描包 -->
-   	<!-- <context:component-scan base-package="com.advice,com.test"></context:component-scan> -->
+   	<context:component-scan base-package="com..service.impl"></context:component-scan>
    	
    	<!-- proxy-target-class
    		true cglib动态代理
@@ -181,4 +187,21 @@
     	<aop:advisor advice-ref="mybeforelogin" pointcut-ref="mypoint"/>
     	<aop:advisor advice-ref="myafterlogin" pointcut-ref="mypoint"/>
     </aop:config>
+    
+    <!-- 自动注入 -->
+    <!-- byName -->
+    <!-- <bean id = "teacher" class = "com.pojo.Teacher"></bean>
+    <bean id = "peopledi" class = "com.pojo.PeopleDI" autowire="byName"></bean> -->
+    
+    <!-- byType -->
+    <!-- <bean id = "teacher1" class = "com.pojo.Teacher"></bean>
+    <bean id = "peopledi" class = "com.pojo.PeopleDI" autowire="byType"></bean> -->
+    
+    <!-- constructor -->
+    <!-- <bean id = "teacher1" class = "com.pojo.Teacher"></bean>
+    <bean id = "peopledi" class = "com.pojo.PeopleDI" autowire="constructor"></bean> -->
+    
+    <!-- 全局设置自动注入 -->
+    <bean id = "teacher" class = "com.pojo.Teacher"></bean>
+    <bean id = "peopledi" class = "com.pojo.PeopleDI"></bean>
 </beans>

@@ -1,10 +1,15 @@
 package com.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.mapper.UsersMapper;
 import com.pojo.Users;
 import com.service.UsersService;
 
 public class UsersServiceImpl implements UsersService {
+	
+	@Value("${my.demo}")
+	private String test;
 	
 	private UsersMapper usersMapper;
 	
@@ -18,6 +23,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public Users login(Users users) {
+		System.out.println(test);
 		return usersMapper.selByUsersPwd(users);
 	}
 

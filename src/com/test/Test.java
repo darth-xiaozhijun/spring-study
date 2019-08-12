@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.pojo.Airport;
 import com.pojo.People;
+import com.pojo.PeopleDI;
 import com.service.impl.AirportServiceImpl;
 
 public class Test {
@@ -41,14 +42,14 @@ public class Test {
 //		List<Airport> list = bean.show();
 //		System.out.println(list);
 		
-		Demo demo = ac.getBean("demo",Demo.class);
+		/*Demo demo = ac.getBean("demo",Demo.class);
 		try {
 			demo.demo1();
 //			demo.demo1("张三",12);
 //			demo.demo1("李四");
 		} catch (Exception e) {
 //			e.printStackTrace();
-		}
+		}*/
 //		demo.demo2();
 //		demo.demo3();
 //		demo.demo4("传递的参数");
@@ -62,5 +63,8 @@ public class Test {
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
 		}*/
+		
+		PeopleDI peopleDI = ac.getBean("peopledi", PeopleDI.class);
+		System.out.println(peopleDI);
 	}
 }
