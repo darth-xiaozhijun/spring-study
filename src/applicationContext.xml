@@ -3,12 +3,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context.xsd"
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd"
         default-autowire="byName">
     
     <!-- 加载外部文件properties -->    
@@ -182,11 +185,11 @@
     <!-- aop -->
     <bean id="mybeforelogin" class="com.advice.MyBeforeLogin"></bean>
     <bean id="myafterlogin" class="com.advice.MyAfterLogin"></bean>
-    <aop:config>
+    <!-- <aop:config>
     	<aop:pointcut expression="execution(* com.service.impl.UsersServiceImpl.login(..))" id="mypoint"/>
     	<aop:advisor advice-ref="mybeforelogin" pointcut-ref="mypoint"/>
     	<aop:advisor advice-ref="myafterlogin" pointcut-ref="mypoint"/>
-    </aop:config>
+    </aop:config> -->
     
     <!-- 自动注入 -->
     <!-- byName -->
@@ -204,4 +207,25 @@
     <!-- 全局设置自动注入 -->
     <bean id = "teacher" class = "com.pojo.Teacher"></bean>
     <bean id = "peopledi" class = "com.pojo.PeopleDI"></bean>
+    
+    <!-- spring-jdbc.jar 中-->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 配置声明式事务-->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<!-- 哪些方法需要有事务控制-->
+			<!-- 方法以ins 开头事务管理-->
+			<tx:method name="ins*" />
+			<tx:method name="del*" />
+			<tx:method name="upd*" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+    <aop:config>
+    	<aop:pointcut expression="execution(* com.service.impl.*.*(..))" id="mypoint"/>
+    	<aop:advisor advice-ref="txAdvice" pointcut-ref="mypoint" />
+    </aop:config>
 </beans>

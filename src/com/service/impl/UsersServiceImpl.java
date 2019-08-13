@@ -27,4 +27,9 @@ public class UsersServiceImpl implements UsersService {
 		return usersMapper.selByUsersPwd(users);
 	}
 
+	@Override
+	public int insert(Users users) {
+		return 0;
+	}
+
 }

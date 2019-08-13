@@ -10,4 +10,6 @@ public interface UsersService {
 	 * @return
 	 */
 	Users login(Users users);
+	
+	int insert(Users users);
 }
