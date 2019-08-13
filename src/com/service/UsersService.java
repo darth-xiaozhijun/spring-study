@@ -12,4 +12,8 @@ public interface UsersService {
 	Users login(Users users);
 	
 	int insert(Users users);
+	
+	int insUsers(Users users);
+	
+	int updUsers(Users users) throws Exception;
 }

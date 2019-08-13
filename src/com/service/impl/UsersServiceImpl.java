@@ -32,4 +32,18 @@ public class UsersServiceImpl implements UsersService {
 		return 0;
 	}
 
+	@Override
+	public int insUsers(Users users) {
+		System.out.println("dsfasd");
+		insert(users);
+		System.out.println("werqsd");
+		return 0;
+	}
+
+	@Override
+	public int updUsers(Users users) throws Exception {
+		insert(users);
+		throw new Exception();
+	}
+
 }

@@ -218,10 +218,10 @@
 		<tx:attributes>
 			<!-- 哪些方法需要有事务控制-->
 			<!-- 方法以ins 开头事务管理-->
-			<tx:method name="ins*" />
-			<tx:method name="del*" />
-			<tx:method name="upd*" />
-			<tx:method name="*" />
+			<tx:method name="ins*" propagation="REQUIRED" isolation="DEFAULT" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="upd*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
     <aop:config>
