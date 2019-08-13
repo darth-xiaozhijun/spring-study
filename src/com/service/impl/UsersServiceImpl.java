@@ -1,25 +1,31 @@
 package com.service.impl;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.mapper.UsersMapper;
 import com.pojo.Users;
 import com.service.UsersService;
 
+@Service
 public class UsersServiceImpl implements UsersService {
 	
 	@Value("${my.demo}")
 	private String test;
 	
+	@Resource
 	private UsersMapper usersMapper;
 	
-	public UsersMapper getUsersMapper() {
+	/*public UsersMapper getUsersMapper() {
 		return usersMapper;
 	}
 
 	public void setUsersMapper(UsersMapper usersMapper) {
 		this.usersMapper = usersMapper;
-	}
+	}*/
 
 	@Override
 	public Users login(Users users) {

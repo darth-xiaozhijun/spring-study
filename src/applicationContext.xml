@@ -110,9 +110,9 @@
     </bean>
     
     <!-- 创建Service -->
-    <bean id="usersService" class="com.service.impl.UsersServiceImpl">
-    	<!-- <property name="usersMapper" ref="usersMapper"></property> -->
-    </bean>
+   <!--  <bean id="usersService" class="com.service.impl.UsersServiceImpl">
+    	<property name="usersMapper" ref="usersMapper"></property>
+    </bean> -->
     
     <!-- 配置Demo 类,测试使用-->
     <!-- <bean id="demo" class="com.test.Demo"></bean>
